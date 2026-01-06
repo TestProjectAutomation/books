@@ -1,0 +1,29 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block title %}حسابي{% endblock %}
+
+{% block sidebar_links %}
+<a class="block px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 transition" href="{% url 'me_dashboard' %}">🏠 الرئيسية</a>
+<a class="block px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 transition" href="{% url 'me_book_create' %}">➕ إضافة كتاب</a>
+{% endblock %}
+
+{% block dash_content %}
+<h1 class="text-2xl font-extrabold mb-4">📚 كتبك</h1>
+
+<div class="grid sm:grid-cols-1 gap-4">
+  {% for book in books %}
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-center justify-between">
+      <div>
+        <div class="font-semibold">{{ book.title }}</div>
+        <div class="text-slate-400 text-sm">{% if book.is_published %}منشور{% else %}مسودة{% endif %}</div>
+      </div>
+      <div class="flex gap-2">
+        <a class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15" href="{% url 'me_book_update' book.pk %}">تعديل</a>
+        <a class="px-3 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-200" href="{% url 'me_book_delete' book.pk %}">حذف</a>
+      </div>
+    </div>
+  {% empty %}
+    <div class="text-slate-300">لا توجد كتب بعد.</div>
+  {% endfor %}
+</div>
+{% endblock %}

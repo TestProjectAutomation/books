@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}مكتبتي{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <style> body { font-family: 'Cairo', sans-serif; } </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-slate-950/70 backdrop-blur border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="{% url 'home' %}" class="text-2xl font-extrabold flex items-center gap-2">📚 مكتبتي</a>
+      <nav class="flex items-center gap-2">
+        {% if user.is_authenticated %}
+          <a href="{% url 'me_dashboard' %}" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15">حسابي</a>
+          {% if user.is_staff %}
+            <a href="{% url 'admin_dashboard_home' %}" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15">Dashboard</a>
+          {% endif %}
+          <form method="post" action="{% url 'logout' %}" class="inline">
+            {% csrf_token %}
+            <button class="px-3 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-200">خروج</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="px-3 py-2 rounded-xl bg-indigo-500 hover:bg-indigo-400 font-semibold">دخول</a>
+          <a href="{% url 'signup' %}" class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15">إنشاء حساب</a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="border-t border-white/10 mt-10">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-slate-400 text-sm flex justify-between">
+      <span>© مكتبتي</span>
+      <span>Tailwind + GSAP</span>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/site.js' %}"></script>
+</body>
+</html>

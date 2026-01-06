@@ -1,0 +1,32 @@
+{% extends "admin_dash/base_admin.html" %}
+{% block dash_content %}
+<h1 class="text-2xl font-extrabold mb-6">لوحة التحكم الرئيسية</h1>
+
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
+    <div class="text-slate-400 text-sm">إجمالي الكتب</div>
+    <div class="text-3xl font-extrabold">{{ total_books }}</div>
+  </div>
+  <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
+    <div class="text-slate-400 text-sm">المنشور</div>
+    <div class="text-3xl font-extrabold">{{ published }}</div>
+  </div>
+  <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
+    <div class="text-slate-400 text-sm">مسودات</div>
+    <div class="text-3xl font-extrabold">{{ drafts }}</div>
+  </div>
+  <div class="rounded-2xl border border-white/10 bg-white/5 p-4 text-center">
+    <div class="text-slate-400 text-sm">المستخدمين</div>
+    <div class="text-3xl font-extrabold">{{ total_users }}</div>
+  </div>
+</div>
+
+<div class="mt-6 rounded-3xl border border-white/10 bg-white/5 p-5">
+  <h2 class="font-bold mb-3">أكثر التصنيفات استخدامًا</h2>
+  <div class="flex flex-wrap gap-2">
+    {% for c in top_categories %}
+      <span class="px-3 py-2 bg-white/5 border border-white/10 rounded-xl">{{ c.name }} ({{ c.total }})</span>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}قراءة: {{ book.title }}{% endblock %}
+
+{% block content %}
+<div class="rounded-2xl border border-white/10 bg-white/5 p-3">
+  <div class="flex items-center justify-between mb-3">
+    <h1 class="text-lg font-bold truncate">📖 {{ book.title }}</h1>
+    <a class="px-3 py-1 rounded-xl bg-white/10 hover:bg-white/15 text-sm" href="{% url 'book_detail' book.slug %}">رجوع</a>
+  </div>
+
+  {% if book.pdf_file %}
+    <iframe 
+      src="{% static 'pdfjs/web/viewer.html' %}?file={{ book.pdf_file.url|urlencode }}" 
+      class="w-full h-[70vh] rounded-xl border border-white/10 shadow-md transition-transform hover:scale-[1.01]">
+    </iframe>
+  {% else %}
+    <article class="leading-7 text-slate-100 text-sm max-w-4xl mx-auto">{{ book.content|linebreaksbr }}</article>
+  {% endif %}
+</div>
+{% endblock %}

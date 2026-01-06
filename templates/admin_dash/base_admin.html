@@ -1,0 +1,7 @@
+{% extends "dashboard/base_dashboard.html" %}
+
+{% block sidebar_links %}
+<a class="block px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 transition" href="{% url 'admin_dashboard_home' %}">🏠 الرئيسية</a>
+<a class="block px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 transition" href="{% url 'admin_dashboard_books' %}">📚 إدارة الكتب</a>
+<a class="block px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 transition" href="{% url 'admin_dashboard_categories' %}">🗂️ إدارة التصنيفات</a>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "admin_dash/base_admin.html" %}
+{% block dash_content %}
+<h1 class="text-2xl font-extrabold mb-4">📚 إدارة الكتب</h1>
+
+<form method="get" class="flex gap-2 mb-4">
+  <input type="text" name="q" value="{{ q }}" placeholder="بحث عن كتاب أو مستخدم"
+         class="flex-1 bg-slate-900/70 border border-white/10 rounded-2xl px-4 py-3 outline-none">
+  <button class="px-5 py-3 rounded-2xl bg-indigo-500 hover:bg-indigo-400 font-semibold">بحث</button>
+</form>
+
+<div class="rounded-3xl border border-white/10 bg-white/5 overflow-hidden">
+  <div class="grid grid-cols-[1fr_160px_140px] gap-0 bg-white/5 border-b border-white/10 px-4 py-3 text-slate-300 text-sm">
+    <div>الكتاب</div><div>الحالة</div><div>إجراءات</div>
+  </div>
+
+  {% for book in books %}
+    <div class="grid grid-cols-[1fr_160px_140px] px-4 py-3 border-b border-white/5 items-center">
+      <div>
+        <div class="font-semibold">{{ book.title }}</div>
+        <div class="text-slate-400 text-sm">
+          {{ book.author_name }} {% if book.category %}• {{ book.category.name }}{% endif %}
+        </div>
+      </div>
+      <div class="text-sm">
+        {% if book.is_published %}
+          <span class="px-2 py-1 rounded-lg bg-emerald-500/20 text-emerald-200">منشور</span>
+        {% else %}
+          <span class="px-2 py-1 rounded-lg bg-amber-500/20 text-amber-200">مسودة</span>
+        {% endif %}
+      </div>
+      <div class="flex gap-2">
+        <a class="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15" href="#">تعديل</a>
+        <a class="px-3 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-200" href="#">حذف</a>
+      </div>
+    </div>
+  {% empty %}
+    <div class="px-4 py-6 text-slate-300">لا يوجد كتب</div>
+  {% endfor %}
+</div>
+{% endblock %}
